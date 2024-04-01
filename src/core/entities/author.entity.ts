@@ -1,5 +1,5 @@
 export interface Author {
-  id: number
+  id: string | null
   firstName: string
   lastName: string
 }
