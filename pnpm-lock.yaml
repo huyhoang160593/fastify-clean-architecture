@@ -5,18 +5,30 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fastify/autoload':
+    specifier: ^5.8.0
+    version: 5.8.0
   '@fastify/env':
     specifier: ^4.3.0
     version: 4.3.0
   '@sinclair/typebox':
     specifier: ^0.32.20
     version: 0.32.20
+  autoload:
+    specifier: ^0.1.2
+    version: 0.1.2
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   drizzle-orm:
     specifier: ^0.30.6
     version: 0.30.6(postgres@3.4.4)
   fastify:
     specifier: ^4.26.2
     version: 4.26.2
+  fastify-plugin:
+    specifier: ^4.5.1
+    version: 4.5.1
   node-dependency-injection:
     specifier: ^3.1.2
     version: 3.1.2(@babel/core@7.24.3)(typescript@5.4.3)
@@ -811,6 +823,10 @@ packages:
       fast-uri: 2.3.0
     dev: false
 
+  /@fastify/autoload@5.8.0:
+    resolution: {integrity: sha512-bF86vl+1Kk91S41WIL9NrKhcugGQg/cQ959aTaombkCjA+9YAbgVCKKu2lRqtMsosDZ0CNRfVnaLYoHQIDUI2A==}
+    dev: false
+
   /@fastify/env@4.3.0:
     resolution: {integrity: sha512-WSredffWvaYjiwHGK5wvY33LFi39gAasBMWelglA6Jk+d7uj/ZWp7icaPoM0kSR5g9M8OOALEvk+8SXiNhK1YA==}
     dependencies:
@@ -1150,6 +1166,10 @@ packages:
   /atomic-sleep@1.0.0:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
+    dev: false
+
+  /autoload@0.1.2:
+    resolution: {integrity: sha512-SeMTiwY5p9c+3nIdT2DdIhJZj0BKwcSuqOLCg2MwV6qWmo5jDEgIugEFdhJIUYUTJ428RV49Ik5UkpmzM1k0gw==}
     dev: false
 
   /avvio@8.3.0:

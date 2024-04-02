@@ -7,6 +7,9 @@ import {
 	type EnvironmentVariable,
 } from "@core/entities/environment-variable.entity.ts";
 import { ServerInstance } from "@core/abstracts/index.ts";
+import fastifyAutoload from "@fastify/autoload";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
@@ -21,8 +24,15 @@ export class FastifyInstance extends ServerInstance {
 	});
 
 	async setup(): Promise<void> {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
 		try {
 			await this.app.register(fastifyEnv.default, fastifyEnvOpt);
+
+      this.app.register(fastifyAutoload, {
+        dir: join(__dirname, "plugins"),
+      });
 
 			this.isSetupSuccessfully = true;
 		} catch (error) {
