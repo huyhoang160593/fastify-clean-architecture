@@ -1,21 +1,11 @@
-// Require the framework and instantiate it
+import type { ServerInstance } from "@core/abstracts/index.ts";
+import { FastifyInstance } from "./frameworks/server/index.ts";
 
-// ESM
-import Fastify from "fastify";
-const fastify = Fastify({
-	logger: true,
-});
+bootstrap();
 
-// Declare a route
-fastify.get("/", (request, reply) => {
-	reply.send({ hello: "world" });
-});
+async function bootstrap() {
+  const application: ServerInstance = new FastifyInstance();
 
-// Run the server!
-fastify.listen({ port: 3000 }, (err, address) => {
-	if (err) {
-		fastify.log.error(err);
-		process.exit(1);
-	}
-	// Server is now listening on ${address}
-});
+  await application.setup()
+  application.listen()
+}
