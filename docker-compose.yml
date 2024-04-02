@@ -1,0 +1,25 @@
+services:
+#####################################
+# PostgreSQL
+#####################################
+  db:
+    container_name: postgredb
+    image: postgres:16.2-alpine3.19
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/pg_isready", "-q", "-d", "$POSTGRES_DB", "-U", "$POSTGRES_USER"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # - ./docker/pg/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:

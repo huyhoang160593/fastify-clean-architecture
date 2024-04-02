@@ -3,13 +3,16 @@
   "dependencies": {
     "@fastify/env": "^4.3.0",
     "@sinclair/typebox": "^0.32.20",
+    "drizzle-orm": "^0.30.6",
     "fastify": "^4.26.2",
-    "node-dependency-injection": "^3.1.2"
+    "node-dependency-injection": "^3.1.2",
+    "postgres": "^3.4.4"
   },
   "description": "Learn and practice Clean Architecture with Fastify, base on a great article written by Royi Benita(https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescript-34b9398d790f)",
   "devDependencies": {
     "@biomejs/biome": "1.6.3",
     "@types/node": "^20.12.2",
+    "drizzle-kit": "^0.20.14",
     "tsup": "^8.0.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.3"
@@ -27,9 +30,11 @@
   "main": "main.js",
   "name": "fastify-clean-architecture",
   "scripts": {
+    "copy-env": "tsx scripts/generate-local-env.ts",
     "dev": "tsx watch src/main.ts",
     "format": "biome format --write ./src",
-    "lint": "biome lint --apply ./src"
+    "lint": "biome lint --apply ./src",
+    "typecheck": "tsc --noEmit"
   },
   "type": "module",
   "version": "1.0.0"
