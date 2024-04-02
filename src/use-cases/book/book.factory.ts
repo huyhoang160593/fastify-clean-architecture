@@ -8,15 +8,15 @@ export class BookFactoryBuilder {
 			title: createBookDto.title,
 			author: createBookDto.authorId,
 			genre: createBookDto.genreId,
-      publishDate: createBookDto.publishDate,
+			publishDate: createBookDto.publishDate,
 			description: "",
 		} satisfies Partial<Book>);
 		return newBook;
 	}
 
-	updateBook(updateBook: UpdateBookDto, currentBookId: Book['id']): Book {
+	updateBook(updateBook: UpdateBookDto, currentBookId: Book["id"]): Book {
 		const updatedBook: Book = Object.assign({}, {
-      id: currentBookId,
+			id: currentBookId,
 			title: updateBook.title ?? "",
 			author: updateBook.authorId,
 			genre: updateBook.genreId,

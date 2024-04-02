@@ -4,8 +4,8 @@ import { FastifyInstance } from "./frameworks/server/index.ts";
 bootstrap();
 
 async function bootstrap() {
-  const application: ServerInstance = new FastifyInstance();
+	const application: ServerInstance = new FastifyInstance();
 
-  await application.setup()
-  application.listen()
+	await application.setup();
+	application.listen();
 }

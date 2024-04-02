@@ -3,8 +3,8 @@ import type { IGenericRepository } from "./generic-repository.interface.ts";
 import type { IAuthenticationRepository } from "./authentication-repository.interface.ts";
 
 export interface IDataServices {
-  users: IAuthenticationRepository;
-  authors: IGenericRepository<Author>;
-  books: IGenericRepository<Book>;
-  genres: IGenericRepository<Genre>;
+	users: IAuthenticationRepository;
+	authors: IGenericRepository<Author>;
+	books: IGenericRepository<Book>;
+	genres: IGenericRepository<Genre>;
 }

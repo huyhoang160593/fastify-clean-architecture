@@ -1,5 +1,5 @@
 import type { Book } from "@core/entities/index.ts";
 
 export interface ICrmServices {
-  bookAdded(book: Book): Promise<boolean>
+	bookAdded(book: Book): Promise<boolean>;
 }

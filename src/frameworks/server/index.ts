@@ -1,1 +1,1 @@
-export * from "./fastify/fastify.server.ts"
+export * from "./fastify/fastify.server.ts";
