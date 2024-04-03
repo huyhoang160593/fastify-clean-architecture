@@ -9,13 +9,14 @@ import { ServerInstance } from "@core/abstracts/index.ts";
 import fastifyAutoload from "@fastify/autoload";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { registerServices } from "@frameworks/di/container.di.ts";
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
 	schema: envSchema,
 };
 
-export class FastifyInstance extends ServerInstance {
+export class FastifyServerInstance extends ServerInstance {
 	protected isSetupSuccessfully = false;
 
 	private app: Fastify.FastifyInstance = Fastify({
@@ -31,6 +32,8 @@ export class FastifyInstance extends ServerInstance {
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "plugins"),
 			});
+			registerServices(this.app);
+
 			this.isSetupSuccessfully = true;
 		} catch (error) {
 			throw new Error(`Failed to setup server. Error: ${error}`);

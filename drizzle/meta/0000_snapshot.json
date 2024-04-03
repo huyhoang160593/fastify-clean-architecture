@@ -19,7 +19,7 @@
           "name": "name",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "description": {
           "name": "description",
@@ -68,13 +68,13 @@
           "name": "category_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "product_id": {
           "name": "product_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -140,7 +140,7 @@
           "name": "name",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "description": {
           "name": "description",
@@ -216,25 +216,25 @@
           "name": "name",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "password_hash": {
           "name": "password_hash",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "phone": {
-          "name": "phone",
+        "phone_number": {
+          "name": "phone_number",
           "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "address": {
           "name": "address",

@@ -30,7 +30,7 @@ function generateTable<T>(tableDefinitionObject: T) {
 export const categories = pgTable(
 	"categories",
 	generateTable({
-		name: varchar("name"),
+		name: varchar("name").notNull(),
 		description: varchar("description"),
 		image_url: varchar("image"),
 	}),
@@ -39,7 +39,7 @@ export const categories = pgTable(
 export const products = pgTable(
 	"products",
 	generateTable({
-		name: varchar("name"),
+		name: varchar("name").notNull(),
 		description: varchar("description"),
 		image_url: varchar("image"),
 		lock_buy: boolean("lock_buy").default(false),
@@ -51,8 +51,12 @@ export const products = pgTable(
 export const categories_products = pgTable(
 	"categories_products",
 	generateTable({
-		category_id: uuid("category_id").references(() => categories.id),
-		product_id: uuid("product_id").references(() => products.id),
+		category_id: uuid("category_id")
+			.references(() => categories.id)
+			.notNull(),
+		product_id: uuid("product_id")
+			.references(() => products.id)
+			.notNull(),
 	}),
 );
 
@@ -65,10 +69,10 @@ export const users = pgTable(
 	"users",
 	generateTable({
 		privilege_code: varchar("privilege_code").references(() => privilege.code),
-		name: varchar("name"),
-		email: varchar("email"),
-		password_hash: varchar("password_hash"),
-		phone_number: varchar("phone"),
+		name: varchar("name").notNull(),
+		email: varchar("email").notNull(),
+		password_hash: varchar("password_hash").notNull(),
+		phone_number: varchar("phone_number").notNull(),
 		address: varchar("address"),
 	}),
 );

@@ -1,6 +1,11 @@
 export interface User {
-	id: string | null;
-	email: string;
-	name: string;
-	passwordHash: string;
+	id: string;
+	name: string | null;
+	created_at: Date | null;
+	update_at: Date | null;
+	privilege_code: string | null;
+	email: string | null;
+	password_hash: string | null;
+	phone_number: string | null;
+	address: string | null;
 }

@@ -5,7 +5,7 @@ import { pgTable, uuid, varchar, timestamp, foreignKey, boolean, integer, real }
 
 export const categories = pgTable("categories", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
-	name: varchar("name"),
+	name: varchar("name").notNull(),
 	description: varchar("description"),
 	image: varchar("image"),
 	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow(),
@@ -14,15 +14,15 @@ export const categories = pgTable("categories", {
 
 export const categoriesProducts = pgTable("categories_products", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
-	categoryId: uuid("category_id").references(() => categories.id),
-	productId: uuid("product_id").references(() => products.id),
+	categoryId: uuid("category_id").notNull().references(() => categories.id),
+	productId: uuid("product_id").notNull().references(() => products.id),
 	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow(),
 	updateAt: timestamp("update_at", { mode: 'string' }).defaultNow(),
 });
 
 export const products = pgTable("products", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
-	name: varchar("name"),
+	name: varchar("name").notNull(),
 	description: varchar("description"),
 	image: varchar("image"),
 	lockBuy: boolean("lock_buy").default(false),
@@ -35,10 +35,10 @@ export const products = pgTable("products", {
 export const users = pgTable("users", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
 	privilegeCode: varchar("privilege_code").references(() => privilege.code),
-	name: varchar("name"),
-	email: varchar("email"),
-	passwordHash: varchar("password_hash"),
-	phone: varchar("phone"),
+	name: varchar("name").notNull(),
+	email: varchar("email").notNull(),
+	passwordHash: varchar("password_hash").notNull(),
+	phoneNumber: varchar("phone_number").notNull(),
 	address: varchar("address"),
 	createdAt: timestamp("created_at", { mode: 'string' }).defaultNow(),
 	updateAt: timestamp("update_at", { mode: 'string' }).defaultNow(),

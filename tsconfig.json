@@ -114,6 +114,7 @@
   },
   "exclude": [
     "scripts",
+    "drizzle",
     "drizzle.config.ts"
   ]
 }

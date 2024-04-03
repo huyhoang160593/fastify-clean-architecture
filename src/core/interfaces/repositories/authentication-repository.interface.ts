@@ -4,6 +4,7 @@ export interface IAuthenticationRepository {
 		email: string,
 		password: string,
 		name: string,
+		phoneNumber: string,
 	): Promise<IAuthenSession>;
 	refreshSession(refreshToken: string): Promise<IAuthenSession>;
 }

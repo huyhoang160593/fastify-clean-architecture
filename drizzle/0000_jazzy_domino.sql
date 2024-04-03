@@ -3,7 +3,7 @@
 /*
 CREATE TABLE IF NOT EXISTS "categories" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" varchar,
+	"name" varchar NOT NULL,
 	"description" varchar,
 	"image" varchar,
 	"created_at" timestamp DEFAULT now(),
@@ -12,15 +12,15 @@ CREATE TABLE IF NOT EXISTS "categories" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "categories_products" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"category_id" uuid,
-	"product_id" uuid,
+	"category_id" uuid NOT NULL,
+	"product_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"update_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "products" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"name" varchar,
+	"name" varchar NOT NULL,
 	"description" varchar,
 	"image" varchar,
 	"lock_buy" boolean DEFAULT false,
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS "products" (
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"privilege_code" varchar,
-	"name" varchar,
-	"email" varchar,
-	"password_hash" varchar,
-	"phone" varchar,
+	"name" varchar NOT NULL,
+	"email" varchar NOT NULL,
+	"password_hash" varchar NOT NULL,
+	"phone_number" varchar NOT NULL,
 	"address" varchar,
 	"created_at" timestamp DEFAULT now(),
 	"update_at" timestamp DEFAULT now()
