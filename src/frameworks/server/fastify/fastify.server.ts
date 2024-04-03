@@ -1,5 +1,4 @@
 // Require the framework and instantiate it
-
 import Fastify from "fastify";
 import * as fastifyEnv from "@fastify/env";
 import {
@@ -24,16 +23,14 @@ export class FastifyInstance extends ServerInstance {
 	});
 
 	async setup(): Promise<void> {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
+		const __filename = fileURLToPath(import.meta.url);
+		const __dirname = dirname(__filename);
 
 		try {
 			await this.app.register(fastifyEnv.default, fastifyEnvOpt);
-
-      this.app.register(fastifyAutoload, {
-        dir: join(__dirname, "plugins"),
-      });
-
+			await this.app.register(fastifyAutoload, {
+				dir: join(__dirname, "plugins"),
+			});
 			this.isSetupSuccessfully = true;
 		} catch (error) {
 			throw new Error(`Failed to setup server. Error: ${error}`);
