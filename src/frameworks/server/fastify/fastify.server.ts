@@ -9,7 +9,7 @@ import { ServerInstance } from "@core/abstracts/index.ts";
 import fastifyAutoload from "@fastify/autoload";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { registerServices } from "@frameworks/di/container.di.ts";
+import { TypeBoxValidatorCompiler } from "@fastify/type-provider-typebox";
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
@@ -21,7 +21,7 @@ export class FastifyServerInstance extends ServerInstance {
 
 	private app: Fastify.FastifyInstance = Fastify({
 		logger: true,
-	});
+	}).setValidatorCompiler(TypeBoxValidatorCompiler);
 
 	async setup(): Promise<void> {
 		const __filename = fileURLToPath(import.meta.url);
@@ -32,7 +32,6 @@ export class FastifyServerInstance extends ServerInstance {
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "plugins"),
 			});
-			registerServices(this.app);
 
 			this.isSetupSuccessfully = true;
 		} catch (error) {

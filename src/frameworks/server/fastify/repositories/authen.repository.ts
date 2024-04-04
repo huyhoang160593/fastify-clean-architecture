@@ -2,9 +2,9 @@ import type {
 	IAuthenSession,
 	IAuthenticationRepository,
 } from "@core/interfaces/index.ts";
+import { users } from "@frameworks/database/dizzle/schema.ts";
 import { eq } from "drizzle-orm";
 import type { FastifyInstance } from "fastify";
-import { users } from "../schema.ts";
 
 export class AuthenRepository implements IAuthenticationRepository {
 	constructor(

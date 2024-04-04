@@ -8,25 +8,6 @@ import {
 	real,
 } from "drizzle-orm/pg-core";
 
-const idColumn = {
-	id: uuid("id").defaultRandom().primaryKey(),
-};
-const createUpdateColumns = {
-	created_at: timestamp("created_at").defaultNow(),
-	update_at: timestamp("update_at")
-		.defaultNow()
-		.$onUpdateFn(() => new Date()),
-};
-
-function generateTable<T>(tableDefinitionObject: T) {
-	return Object.assign(
-		{},
-		idColumn,
-		tableDefinitionObject,
-		createUpdateColumns,
-	);
-}
-
 export const categories = pgTable(
 	"categories",
 	generateTable({
@@ -101,3 +82,28 @@ export const orders_products = pgTable(
 		quantity: integer("quantity").default(1),
 	}),
 );
+
+//#region Private helpers
+function generateIdColumn() {
+	return {
+		id: uuid("id").defaultRandom().primaryKey(),
+	};
+}
+function generateCreateUpdateColumns() {
+	return {
+		created_at: timestamp("created_at").defaultNow(),
+		update_at: timestamp("update_at")
+			.defaultNow()
+			.$onUpdateFn(() => new Date()),
+	};
+}
+
+function generateTable<T>(tableDefinitionObject: T) {
+	return Object.assign(
+		{},
+		generateIdColumn(),
+		tableDefinitionObject,
+		generateCreateUpdateColumns(),
+	);
+}
+//#endregion

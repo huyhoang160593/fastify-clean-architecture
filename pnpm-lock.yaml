@@ -20,6 +20,9 @@ dependencies:
   '@fastify/sensible':
     specifier: ^5.5.0
     version: 5.5.0
+  '@fastify/type-provider-typebox':
+    specifier: ^4.0.0
+    version: 4.0.0(@sinclair/typebox@0.32.20)
   '@sinclair/typebox':
     specifier: ^0.32.20
     version: 0.32.20
@@ -892,6 +895,14 @@ packages:
       http-errors: 2.0.0
       type-is: 1.6.18
       vary: 1.1.2
+    dev: false
+
+  /@fastify/type-provider-typebox@4.0.0(@sinclair/typebox@0.32.20):
+    resolution: {integrity: sha512-kTlN0saC/+xhcQPyBjb3YONQAMjiD/EHlCRjQjsr5E3NFjS5K8ZX5LGzXYDRjSa+sV4y8gTL5Q7FlObePv4iTA==}
+    peerDependencies:
+      '@sinclair/typebox': '>=0.26 <=0.32'
+    dependencies:
+      '@sinclair/typebox': 0.32.20
     dev: false
 
   /@isaacs/cliui@8.0.2:

@@ -6,6 +6,7 @@
     "@fastify/env": "^4.3.0",
     "@fastify/jwt": "^8.0.0",
     "@fastify/sensible": "^5.5.0",
+    "@fastify/type-provider-typebox": "^4.0.0",
     "@sinclair/typebox": "^0.32.20",
     "autoload": "^0.1.2",
     "dotenv": "^16.4.5",
