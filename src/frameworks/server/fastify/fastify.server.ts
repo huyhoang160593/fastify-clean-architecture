@@ -32,7 +32,9 @@ export class FastifyServerInstance extends ServerInstance {
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "plugins"),
 			});
-
+      await this.app.register(fastifyAutoload, {
+        dir: join(__dirname, "routers"),
+      })
 			this.isSetupSuccessfully = true;
 		} catch (error) {
 			throw new Error(`Failed to setup server. Error: ${error}`);

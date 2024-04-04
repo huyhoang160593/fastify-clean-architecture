@@ -16,7 +16,8 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 	const userController = server.container.get<AuthenController>(
 		CONTAINER_KEYS.controller.authen,
 	);
-	server.get(
+
+	server.post(
 		"/login",
 		{
 			schema: {
