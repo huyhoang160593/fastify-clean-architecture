@@ -10,6 +10,8 @@ import fastifyAutoload from "@fastify/autoload";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TypeBoxValidatorCompiler } from "@fastify/type-provider-typebox";
+import fastifySwagger from "@fastify/swagger";
+import fastifyApiReference from "@scalar/fastify-api-reference"
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
@@ -29,12 +31,28 @@ export class FastifyServerInstance extends ServerInstance {
 
 		try {
 			await this.app.register(fastifyEnv.default, fastifyEnvOpt);
+
+			await this.app.register(fastifySwagger, {
+				openapi: {
+					info: {
+						title: "sport_ecommerce",
+						description: "The API for sport_ecommerce that build with Clean Architecture",
+						version: "0.0.1",
+					},
+					servers: [],
+				},
+			});
+
+      await this.app.register(fastifyApiReference, {
+        routePrefix: '/reference',
+      })
+
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "plugins"),
 			});
-      await this.app.register(fastifyAutoload, {
-        dir: join(__dirname, "routers"),
-      })
+			await this.app.register(fastifyAutoload, {
+				dir: join(__dirname, "routers"),
+			});
 			this.isSetupSuccessfully = true;
 		} catch (error) {
 			throw new Error(`Failed to setup server. Error: ${error}`);

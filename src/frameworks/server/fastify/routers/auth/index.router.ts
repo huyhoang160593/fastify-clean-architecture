@@ -4,13 +4,14 @@ import {
 	ErrorResponseDto,
 	LoginDto,
 	LoginResponseDto,
+	RegisterDto,
+	RegisterResponseDto,
 	SuccessResponseDto,
 } from "@core/dtos/index.ts";
 import {
 	Type,
 	type FastifyPluginAsyncTypebox,
 } from "@fastify/type-provider-typebox";
-import fp from "fastify-plugin";
 
 const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 	const userController = server.container.get<AuthenController>(
@@ -31,6 +32,21 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 		async (request, reply) =>
 			reply.send(await userController.login(request.body)),
 	);
+
+	server.post(
+		"/register",
+		{
+			schema: {
+				body: RegisterDto,
+				response: {
+					200: Type.Extract(RegisterResponseDto, SuccessResponseDto()),
+					400: Type.Extract(RegisterResponseDto, ErrorResponseDto()),
+				},
+			},
+		},
+		async (request, reply) =>
+			reply.send(await userController.register(request.body)),
+	);
 };
 
-export default fp(authRouter);
+export default authRouter;
