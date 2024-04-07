@@ -23,7 +23,7 @@ export type RegisterDtoType = Static<typeof RegisterDto>;
 //#region output
 export const AuthenSessionDto = Type.Object({
 	id: Type.String(),
-	name: Type.String(),
+	name: Type.Union([Type.String(), Type.Null()]),
 	accessToken: Type.String(),
 	refreshToken: Type.String(),
 });

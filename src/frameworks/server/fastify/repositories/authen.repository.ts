@@ -1,3 +1,4 @@
+import type { User } from "@core/entities/index.ts";
 import type {
 	IAuthenSession,
 	IAuthenticationRepository,
@@ -64,7 +65,8 @@ export class AuthenRepository implements IAuthenticationRepository {
 			...this.generateTokens(newUser[0].id, newUser[0].email),
 		};
 	}
-	refreshSession(refreshToken: string): Promise<IAuthenSession> {
+	refreshSession(decodedUser: Pick<User, "id" | "email">): Promise<IAuthenSession> {
+
 		throw new Error("Method not implemented.");
 	}
 
