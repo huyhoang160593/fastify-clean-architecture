@@ -11,7 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TypeBoxValidatorCompiler } from "@fastify/type-provider-typebox";
 import fastifySwagger from "@fastify/swagger";
-import fastifyApiReference from "@scalar/fastify-api-reference"
+import fastifyApiReference from "@scalar/fastify-api-reference";
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
@@ -36,16 +36,17 @@ export class FastifyServerInstance extends ServerInstance {
 				openapi: {
 					info: {
 						title: "sport_ecommerce",
-						description: "The API for sport_ecommerce that build with Clean Architecture",
+						description:
+							"The API for sport_ecommerce that build with Clean Architecture",
 						version: "0.0.1",
 					},
 					servers: [],
 				},
 			});
 
-      await this.app.register(fastifyApiReference, {
-        routePrefix: '/reference',
-      })
+			await this.app.register(fastifyApiReference, {
+				routePrefix: "/reference",
+			});
 
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "plugins"),
@@ -53,6 +54,7 @@ export class FastifyServerInstance extends ServerInstance {
 			await this.app.register(fastifyAutoload, {
 				dir: join(__dirname, "routers"),
 			});
+
 			this.isSetupSuccessfully = true;
 		} catch (error) {
 			throw new Error(`Failed to setup server. Error: ${error}`);
@@ -70,6 +72,7 @@ export class FastifyServerInstance extends ServerInstance {
 				port: this.app.config.PORT,
 			},
 			() => {
+        console.info(`Document are available on http://${this.app.config.HOST}:${this.app.config.PORT}/reference`)
 				console.info(
 					`App listening on the http://${this.app.config.HOST}:${this.app.config.PORT} 🌟👻`,
 				);

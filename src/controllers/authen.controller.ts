@@ -1,38 +1,61 @@
-import type { LoginDtoType, LoginResponseDtoType, RegisterDtoType, RegisterResponseDtoType } from "@core/dtos/index.ts";
+import {
+	ErrorResponseDto,
+	LoginResponseDto,
+	RegisterResponseDto,
+	SuccessResponseDto,
+	type LoginDtoType,
+	type LoginResponseDtoType,
+	type RegisterDtoType,
+} from "@core/dtos/index.ts";
+import { Type } from "@sinclair/typebox";
+import { Value } from "@sinclair/typebox/value";
 import type { UserUseCase } from "@use-cases/user/index.ts";
 
 export class AuthenController {
 	constructor(private userUseCase: UserUseCase) {}
 
-	async login({ email, password }: LoginDtoType) {
-		const loginResponse: LoginResponseDtoType = {
-			success: false,
-		};
+	async login({
+		email,
+		password,
+	}: LoginDtoType): Promise<LoginResponseDtoType> {
 		try {
 			const userSession = await this.userUseCase.login(email, password);
-			Object.assign(loginResponse, {
-				success: true,
-				data: userSession,
-			} satisfies LoginResponseDtoType);
+			const successResponse = Value.Create(
+				Type.Extract(LoginResponseDto, SuccessResponseDto()),
+			);
+			successResponse.data = userSession;
+			return successResponse;
 		} catch (error) {
+      console.log(error)
 			// report and log error
+			const errorResponse = Value.Create(ErrorResponseDto);
+			return errorResponse;
 		}
-		return loginResponse;
 	}
 
-  async register({ email, password, name, phoneNumber }: RegisterDtoType) {
-    const registerResponse: RegisterResponseDtoType = {
-      success: false,
-    };
-    try {
-      const userSession = await this.userUseCase.register(email, password, name, phoneNumber);
-      Object.assign(registerResponse, {
-        success: true,
-        data: userSession,
-      } satisfies RegisterResponseDtoType);
-    } catch (error) {
-      // report and log error
-    }
-    return registerResponse;
-  }
+	async register({
+		email,
+		password,
+		name,
+		phoneNumber,
+	}: RegisterDtoType): Promise<LoginResponseDtoType> {
+		try {
+			const userSession = await this.userUseCase.register(
+				email,
+				password,
+				name,
+				phoneNumber,
+			);
+			const successResponse = Value.Create(
+				Type.Extract(RegisterResponseDto, SuccessResponseDto()),
+			);
+			successResponse.data = userSession;
+			return successResponse;
+		} catch (error) {
+      console.log(error)
+			// report and log error
+			const errorResponse = Value.Create(ErrorResponseDto);
+			return errorResponse;
+		}
+	}
 }

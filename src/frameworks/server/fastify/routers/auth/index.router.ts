@@ -1,36 +1,39 @@
 import type { AuthenController } from "@controllers/index.ts";
 import { CONTAINER_KEYS } from "@core/constants/di-keys.constants.ts";
 import {
+	AuthenSessionDto,
 	ErrorResponseDto,
 	LoginDto,
-	LoginResponseDto,
+	OmitStatusCodeDto,
 	RegisterDto,
-	RegisterResponseDto,
 	SuccessResponseDto,
 } from "@core/dtos/index.ts";
-import {
-	Type,
-	type FastifyPluginAsyncTypebox,
-} from "@fastify/type-provider-typebox";
+import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
+import { controllerResponseGenerate } from "../../misc/controller-response-generate.ts";
 
 const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 	const userController = server.container.get<AuthenController>(
 		CONTAINER_KEYS.controller.authen,
 	);
-
 	server.post(
 		"/login",
 		{
 			schema: {
 				body: LoginDto,
 				response: {
-					200: Type.Extract(LoginResponseDto, SuccessResponseDto()),
-					400: Type.Extract(LoginResponseDto, ErrorResponseDto()),
+					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
+					400: OmitStatusCodeDto(ErrorResponseDto),
 				},
 			},
 		},
-		async (request, reply) =>
-			reply.send(await userController.login(request.body)),
+		(request, reply) =>
+			controllerResponseGenerate(
+				userController,
+				"login",
+				[request.body],
+				({ statusCode, ...responseBody }) =>
+					reply.status(statusCode).send(responseBody),
+			),
 	);
 
 	server.post(
@@ -39,13 +42,19 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 			schema: {
 				body: RegisterDto,
 				response: {
-					200: Type.Extract(RegisterResponseDto, SuccessResponseDto()),
-					400: Type.Extract(RegisterResponseDto, ErrorResponseDto()),
+					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
+					400: OmitStatusCodeDto(ErrorResponseDto),
 				},
 			},
 		},
 		async (request, reply) =>
-			reply.send(await userController.register(request.body)),
+			controllerResponseGenerate(
+				userController,
+				"register",
+				[request.body],
+				({ statusCode, ...responseBody }) =>
+					reply.status(statusCode).send(responseBody),
+			),
 	);
 };
 

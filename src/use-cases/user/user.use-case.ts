@@ -13,13 +13,23 @@ export class UserUseCase {
 		}
 	}
 
-  async register(email: string, password: string, name: string, phoneNumber: string) {
-    try {
-      const newUserSession = await this.dataServices.users.register(email, password, name, phoneNumber);
-      return newUserSession
-    } catch (error) {
+	async register(
+		email: string,
+		password: string,
+		name: string,
+		phoneNumber: string,
+	) {
+		try {
+			const newUserSession = await this.dataServices.users.register(
+				email,
+				password,
+				name,
+				phoneNumber,
+			);
+			return newUserSession;
+		} catch (error) {
 			console.log(error);
 			throw error;
-    }
-  }
+		}
+	}
 }
