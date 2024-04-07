@@ -6,7 +6,9 @@ export async function controllerResponseGenerate<
 		[T in keyof PickMatching<Y, Function>]: Y[T] extends (
 			...args: infer A
 		) => infer R
-			? (...args: A) => R extends Promise<unknown> ? R : never
+			? R extends Promise<Awaited<R>>
+				? (...args: A) => R
+				: (...args: A) => Promise<R>
 			: never;
 	},
 >(
@@ -17,9 +19,9 @@ export async function controllerResponseGenerate<
 	responseCallback: (
 		response: Awaited<ReturnType<Y[typeof methodName]>>,
 	) => unknown,
-) {
-	const controllerResponse = await controllerInstance[methodName](...args);
-	responseCallback(
-		controllerResponse as Awaited<ReturnType<Y[typeof methodName]>>,
-	);
+): Promise<void> {
+	const controllerResponse = (await controllerInstance[methodName](
+		...args,
+	)) as Awaited<ReturnType<Y[typeof methodName]>>;
+	responseCallback(controllerResponse);
 }
