@@ -8,7 +8,10 @@ export interface IAuthenticationRepository {
 		name: User['name'],
 		phoneNumber: User['phone_number'],
 	): Promise<IAuthenSession>;
-	refreshSession(decodedUser: Pick<User, "id" | "email">): Promise<IAuthenSession>;
+	refreshSession(
+    id: User['id'],
+    email: User['email'],
+  ): Promise<IAuthenSession>;
 }
 
 export interface IAuthenSession {

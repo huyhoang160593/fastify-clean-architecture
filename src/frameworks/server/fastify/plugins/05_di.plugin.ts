@@ -16,8 +16,10 @@ export default fp(async (server, _options) => {
 		.register(CONTAINER_KEYS.repository.authentication, AuthenRepository)
 		.addArgument(server.db)
 		.addArgument(server.bcrypt)
-		.addArgument(server.jwt);
-
+		.addArgument({
+      access: server.jwt.sign,
+      refresh: server.jwt.refresh.sign,
+    });
 	// register data services. Instead of create a new class, use a synthetic instance. Hack here: https://github.com/zazoomauro/node-dependency-injection/issues/41
 	container.register(CONTAINER_KEYS.services).synthetic = true;
 	container.set(CONTAINER_KEYS.services, {

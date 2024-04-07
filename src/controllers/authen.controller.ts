@@ -1,7 +1,10 @@
 import {
 	ErrorResponseDto,
 	LoginResponseDto,
+	type RefreshTokenDtoType,
+	type RefreshTokenResponseDtoType,
 	RegisterResponseDto,
+	type RegisterResponseDtoType,
 	SuccessResponseDto,
 	type LoginDtoType,
 	type LoginResponseDtoType,
@@ -26,9 +29,13 @@ export class AuthenController {
 			successResponse.data = userSession;
 			return successResponse;
 		} catch (error) {
-      console.log(error)
 			// report and log error
 			const errorResponse = Value.Create(ErrorResponseDto);
+      if (error instanceof Error) {
+        errorResponse.reason = {
+          message: error.message,
+        }
+      }
 			return errorResponse;
 		}
 	}
@@ -38,7 +45,7 @@ export class AuthenController {
 		password,
 		name,
 		phoneNumber,
-	}: RegisterDtoType): Promise<LoginResponseDtoType> {
+	}: RegisterDtoType): Promise<RegisterResponseDtoType> {
 		try {
 			const userSession = await this.userUseCase.register(
 				email,
@@ -52,9 +59,36 @@ export class AuthenController {
 			successResponse.data = userSession;
 			return successResponse;
 		} catch (error) {
-      console.log(error)
 			// report and log error
 			const errorResponse = Value.Create(ErrorResponseDto);
+      if (error instanceof Error) {
+        errorResponse.reason = {
+          message: error.message,
+        }
+      }
+			return errorResponse;
+		}
+	}
+
+	async refreshSession({
+		id,
+		email,
+	}: RefreshTokenDtoType): Promise<RefreshTokenResponseDtoType> {
+		try {
+			const userSession = await this.userUseCase.refreshSession(id, email);
+			const successResponse = Value.Create(
+				Type.Extract(RegisterResponseDto, SuccessResponseDto()),
+			);
+			successResponse.data = userSession;
+			return successResponse;
+		} catch (error) {
+			// report and log error
+			const errorResponse = Value.Create(ErrorResponseDto);
+      if (error instanceof Error) {
+        errorResponse.reason = {
+          message: error.message,
+        }
+      }
 			return errorResponse;
 		}
 	}

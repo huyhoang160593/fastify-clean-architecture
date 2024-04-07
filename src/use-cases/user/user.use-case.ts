@@ -4,13 +4,9 @@ export class UserUseCase {
 	constructor(private dataServices: IDataServices) {}
 
 	async login(email: string, password: string) {
-		try {
-			const userSession = await this.dataServices.users.login(email, password);
-			return userSession;
-		} catch (error) {
-			console.log(error);
+		return this.dataServices.users.login(email, password).catch((error) => {
 			throw error;
-		}
+		});
 	}
 
 	async register(
@@ -19,17 +15,16 @@ export class UserUseCase {
 		name: string,
 		phoneNumber: string,
 	) {
-		try {
-			const newUserSession = await this.dataServices.users.register(
-				email,
-				password,
-				name,
-				phoneNumber,
-			);
-			return newUserSession;
-		} catch (error) {
-			console.log(error);
+		return this.dataServices.users
+			.register(email, password, name, phoneNumber)
+			.catch((error) => {
+				throw error;
+			});
+	}
+
+	async refreshSession(id: string, email: string) {
+		return this.dataServices.users.refreshSession(id, email).catch((error) => {
 			throw error;
-		}
+		});
 	}
 }

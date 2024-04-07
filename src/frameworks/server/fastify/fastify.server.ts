@@ -12,6 +12,9 @@ import { fileURLToPath } from "node:url";
 import { TypeBoxValidatorCompiler } from "@fastify/type-provider-typebox";
 import fastifySwagger from "@fastify/swagger";
 import fastifyApiReference from "@scalar/fastify-api-reference";
+import { Value } from "@sinclair/typebox/value";
+import { ErrorResponseDto } from "@core/dtos/index.ts";
+import { Type } from "@sinclair/typebox";
 
 const fastifyEnvOpt: fastifyEnv.FastifyEnvOptions = {
 	dotenv: true,
@@ -23,7 +26,19 @@ export class FastifyServerInstance extends ServerInstance {
 
 	private app: Fastify.FastifyInstance = Fastify({
 		logger: true,
-	}).setValidatorCompiler(TypeBoxValidatorCompiler);
+	})
+		.setValidatorCompiler(TypeBoxValidatorCompiler)
+		.setErrorHandler((error, _request, response) => {
+			const errorResponse = Value.Create(
+				Type.Omit(ErrorResponseDto, ["statusCode"]),
+			);
+			if (error.validation) {
+				errorResponse.reason = {
+					message: error.message,
+				};
+			}
+			response.status(422).send(errorResponse);
+		});
 
 	async setup(): Promise<void> {
 		const __filename = fileURLToPath(import.meta.url);
@@ -72,7 +87,9 @@ export class FastifyServerInstance extends ServerInstance {
 				port: this.app.config.PORT,
 			},
 			() => {
-        console.info(`Document are available on http://${this.app.config.HOST}:${this.app.config.PORT}/reference`)
+				console.info(
+					`Document are available on http://${this.app.config.HOST}:${this.app.config.PORT}/reference`,
+				);
 				console.info(
 					`App listening on the http://${this.app.config.HOST}:${this.app.config.PORT} 🌟👻`,
 				);

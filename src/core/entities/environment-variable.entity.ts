@@ -9,9 +9,12 @@ export const envSchema = Type.Object({
 		default: "127.0.0.1",
 		description: "Host that server will use for listening on",
 	}),
-	JWT_SECRET: Type.String({
-		description: "JWT secret key",
+	JWT_ACCESS_SECRET: Type.String({
+		description: "JWT secret key for accessToken",
 	}),
+  JWT_REFRESH_SECRET: Type.String({
+    description: "JWT secret key for refreshToken",
+  }),
 	SALT_ROUND: Type.Number({
 		description: "Salt round for bcrypt",
 	}),
