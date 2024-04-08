@@ -3,6 +3,6 @@ export interface Category {
   name: string;
   description: string | null;
   image: string | null;
-  createdAt?: Date | null;
-  updateAt?: Date | null;
+  created_at?: Date | null;
+  update_at?: Date | null;
 }

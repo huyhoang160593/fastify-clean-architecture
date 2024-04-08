@@ -1,9 +1,9 @@
 
 export interface OrderProduct {
   id: string;
-  orderId: string;
-  productId: string;
+  order_id: string;
+  product_id: string;
   quantity: number;
-  createdAt?: Date | null;
-  updateAt?: Date | null;
+  created_at?: Date | null;
+  update_at?: Date | null;
 }

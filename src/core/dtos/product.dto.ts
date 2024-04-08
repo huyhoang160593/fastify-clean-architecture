@@ -9,8 +9,8 @@ export const ProductDto = Type.Object({
 	lockBuy: Type.Boolean(),
 	remain: Type.Number(),
 	price: Type.Number(),
-	createdAt: Type.Optional(Type.Union([Type.Date({ format: "date-time" }), Type.Null()])),
-	updateAt: Type.Optional(Type.Union([Type.Date({ format: "date-time" }), Type.Null()])),
+	createdAt: Type.Optional(Type.Union([Type.String(), Type.Null()])),
+	updateAt: Type.Optional(Type.Union([Type.String(), Type.Null()])),
 });
 export type ProductDtoType = Static<typeof ProductDto>;
 //#region Input

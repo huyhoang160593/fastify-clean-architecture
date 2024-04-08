@@ -1,8 +1,8 @@
 
 export interface CategoryProduct {
   id: string;
-  categoryId: string;
-  productId: string;
-  createdAt?: Date | null;
-  updateAt?: Date | null;
+  category_id: string;
+  product_id: string;
+  created_at?: Date | null;
+  update_at?: Date | null;
 }

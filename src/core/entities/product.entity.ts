@@ -7,6 +7,6 @@ export interface Product {
   lockBuy: boolean;
   remain: number;
   price: number;
-  createdAt?: Date | null;
-  updateAt?: Date | null;
+  created_at?: Date | null;
+  update_at?: Date | null;
 }
