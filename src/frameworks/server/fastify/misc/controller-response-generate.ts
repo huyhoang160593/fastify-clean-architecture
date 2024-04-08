@@ -11,17 +11,18 @@ export async function controllerResponseGenerate<
 				: (...args: A) => Promise<R>
 			: never;
 	},
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
+  T extends keyof PickMatching<Y, Function>
 >(
 	controllerInstance: Y,
-	// biome-ignore lint/complexity/noBannedTypes: <explanation>
-	methodName: keyof PickMatching<Y, Function>,
-	args: Parameters<Y[typeof methodName]>,
+	methodName: T,
+	args: Parameters<Y[T]>,
 	responseCallback: (
-		response: Awaited<ReturnType<Y[typeof methodName]>>,
+		response: Awaited<ReturnType<Y[T]>>,
 	) => unknown,
 ): Promise<void> {
 	const controllerResponse = (await controllerInstance[methodName](
 		...args,
-	)) as Awaited<ReturnType<Y[typeof methodName]>>;
+	)) as Awaited<ReturnType<Y[T]>>;
 	responseCallback(controllerResponse);
 }
