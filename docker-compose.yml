@@ -20,6 +20,15 @@ services:
       # - ./docker/pg/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
+  app:
+    depends_on:
+      db:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    ports:
+      - 3000:3000
 
 volumes:
   pgdata:
