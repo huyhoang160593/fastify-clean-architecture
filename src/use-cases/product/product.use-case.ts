@@ -12,15 +12,15 @@ export class ProductUseCase {
 		return this.dataServices.product.findById(id);
 	}
 
-  async createProduct(newProduct: Partial<Product>) {
-    return this.dataServices.product.create(newProduct);
-  }
+	async createProduct(newProduct: Partial<Product>) {
+		return this.dataServices.product.create(newProduct);
+	}
 
-  async updateProduct(id: string, newProduct: Partial<Product>) {
-    return this.dataServices.product.update(id, newProduct);
-  }
+	async updateProduct(id: string, newProduct: Partial<Product>) {
+		return this.dataServices.product.update(id, newProduct);
+	}
 
-  async deleteProduct(id: string) {
-    return this.dataServices.product.delete(id);
-  }
+	async deleteProduct(id: string) {
+		return this.dataServices.product.delete(id);
+	}
 }

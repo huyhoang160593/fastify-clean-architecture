@@ -8,7 +8,10 @@ import {
 	RegisterDto,
 	SuccessResponseDto,
 } from "@core/dtos/index.ts";
-import { Type, type FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
+import {
+	Type,
+	type FastifyPluginAsyncTypebox,
+} from "@fastify/type-provider-typebox";
 import { controllerResponseGenerate } from "../../misc/controller-response-generate.ts";
 
 const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
@@ -33,8 +36,8 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 				[request.body],
 				({ statusCode, ...responseBody }) =>
 					reply.status(statusCode).send(responseBody),
-			)
-    }
+			);
+		},
 	);
 
 	server.post(
@@ -58,23 +61,28 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 			),
 	);
 
-	server.post("/refresh", {
-    onRequest: [server.refreshAuthenticateHooks],
-		schema: {
-      body: Type.Object({}),
-			response: {
-				200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
-				400: OmitStatusCodeDto(ErrorResponseDto),
-        401: OmitStatusCodeDto(ErrorResponseDto),
+	server.post(
+		"/refresh",
+		{
+			onRequest: [server.refreshAuthenticateHooks],
+			schema: {
+				body: Type.Object({}),
+				response: {
+					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
+					400: OmitStatusCodeDto(ErrorResponseDto),
+					401: OmitStatusCodeDto(ErrorResponseDto),
+				},
 			},
 		},
-	}, (request, reply) => controllerResponseGenerate(
-    userController,
-    "refreshSession",
-    [request.user],
-    ({ statusCode, ...responseBody }) =>
-      reply.status(statusCode).send(responseBody),
-  ));
+		(request, reply) =>
+			controllerResponseGenerate(
+				userController,
+				"refreshSession",
+				[request.user],
+				({ statusCode, ...responseBody }) =>
+					reply.status(statusCode).send(responseBody),
+			),
+	);
 };
 
 export default authRouter;

@@ -16,9 +16,9 @@ export const RegisterDto = Type.Object({
 });
 
 export const RefreshTokenDto = Type.Object({
-  id: Type.String(),
+	id: Type.String(),
 	email: Type.String(),
-})
+});
 
 export type LoginDtoType = Static<typeof LoginDto>;
 export type RegisterDtoType = Static<typeof RegisterDto>;
@@ -34,12 +34,27 @@ export const AuthenSessionDto = Type.Object({
 	refreshToken: Type.String(),
 });
 
-export const LoginResponseDto = ResponseDto<AuthenSessionDtoType, typeof AuthenSessionDto>();
-export const RegisterResponseDto = ResponseDto<AuthenSessionDtoType, typeof AuthenSessionDto>();
-export const RefreshTokenResponseDto = ResponseDto<AuthenSessionDtoType, typeof AuthenSessionDto>();
+export const LoginResponseDto = ResponseDto<
+	AuthenSessionDtoType,
+	typeof AuthenSessionDto
+>();
+export const RegisterResponseDto = ResponseDto<
+	AuthenSessionDtoType,
+	typeof AuthenSessionDto
+>();
+export const RefreshTokenResponseDto = ResponseDto<
+	AuthenSessionDtoType,
+	typeof AuthenSessionDto
+>();
 
-export type AuthenSessionDtoType = Static<typeof AuthenSessionDto> extends IAuthenSession ? IAuthenSession : never;
+export type AuthenSessionDtoType = Static<
+	typeof AuthenSessionDto
+> extends IAuthenSession
+	? IAuthenSession
+	: never;
 export type LoginResponseDtoType = Static<typeof LoginResponseDto>;
 export type RegisterResponseDtoType = Static<typeof RegisterResponseDto>;
-export type RefreshTokenResponseDtoType = Static<typeof RefreshTokenResponseDto>;
+export type RefreshTokenResponseDtoType = Static<
+	typeof RefreshTokenResponseDto
+>;
 //#endregion

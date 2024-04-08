@@ -1,1 +1,1 @@
-export * from './product.use-case.ts'
+export * from "./product.use-case.ts";

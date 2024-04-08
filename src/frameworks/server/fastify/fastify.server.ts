@@ -32,11 +32,10 @@ export class FastifyServerInstance extends ServerInstance {
 			const errorResponse = Value.Create(
 				Type.Omit(ErrorResponseDto, ["statusCode"]),
 			);
-			if (error.validation) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
+			errorResponse.reason = {
+				message: error.message,
+			};
+
 			response.status(422).send(errorResponse);
 		});
 

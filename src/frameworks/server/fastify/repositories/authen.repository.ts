@@ -12,8 +12,8 @@ export class AuthenRepository implements IAuthenticationRepository {
 		private db: FastifyInstance["db"],
 		private bcrypt: FastifyInstance["bcrypt"],
 		private jwtSign: {
-			access: JWT['sign'];
-			refresh: JWT['sign'];
+			access: JWT["sign"];
+			refresh: JWT["sign"];
 		},
 	) {}
 

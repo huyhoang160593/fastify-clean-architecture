@@ -5,12 +5,10 @@ export const ProductDto = Type.Object({
 	id: Type.String(),
 	name: Type.String(),
 	description: Type.Union([Type.String(), Type.Null()]),
-	image: Type.Union([Type.String(), Type.Null()]),
-	lockBuy: Type.Boolean(),
+	image_url: Type.Union([Type.String(), Type.Null()]),
+	lock_buy: Type.Boolean(),
 	remain: Type.Number(),
 	price: Type.Number(),
-	createdAt: Type.Optional(Type.Union([Type.String(), Type.Null()])),
-	updateAt: Type.Optional(Type.Union([Type.String(), Type.Null()])),
 });
 export type ProductDtoType = Static<typeof ProductDto>;
 //#region Input

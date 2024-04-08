@@ -31,11 +31,11 @@ export class AuthenController {
 		} catch (error) {
 			// report and log error
 			const errorResponse = Value.Create(ErrorResponseDto);
-      if (error instanceof Error) {
-        errorResponse.reason = {
-          message: error.message,
-        }
-      }
+			if (error instanceof Error) {
+				errorResponse.reason = {
+					message: error.message,
+				};
+			}
 			return errorResponse;
 		}
 	}
@@ -61,11 +61,11 @@ export class AuthenController {
 		} catch (error) {
 			// report and log error
 			const errorResponse = Value.Create(ErrorResponseDto);
-      if (error instanceof Error) {
-        errorResponse.reason = {
-          message: error.message,
-        }
-      }
+			if (error instanceof Error) {
+				errorResponse.reason = {
+					message: error.message,
+				};
+			}
 			return errorResponse;
 		}
 	}
@@ -84,11 +84,11 @@ export class AuthenController {
 		} catch (error) {
 			// report and log error
 			const errorResponse = Value.Create(ErrorResponseDto);
-      if (error instanceof Error) {
-        errorResponse.reason = {
-          message: error.message,
-        }
-      }
+			if (error instanceof Error) {
+				errorResponse.reason = {
+					message: error.message,
+				};
+			}
 			return errorResponse;
 		}
 	}

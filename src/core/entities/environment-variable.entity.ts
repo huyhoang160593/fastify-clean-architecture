@@ -12,9 +12,9 @@ export const envSchema = Type.Object({
 	JWT_ACCESS_SECRET: Type.String({
 		description: "JWT secret key for accessToken",
 	}),
-  JWT_REFRESH_SECRET: Type.String({
-    description: "JWT secret key for refreshToken",
-  }),
+	JWT_REFRESH_SECRET: Type.String({
+		description: "JWT secret key for refreshToken",
+	}),
 	SALT_ROUND: Type.Number({
 		description: "Salt round for bcrypt",
 	}),

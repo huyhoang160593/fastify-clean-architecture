@@ -3,7 +3,7 @@ import { CONTAINER_KEYS } from "@core/constants/di-keys.constants.ts";
 import {
 	ErrorResponseDto,
 	OmitStatusCodeDto,
-  SuccessResponseDto,
+	SuccessResponseDto,
 } from "@core/dtos/common.dto.ts";
 import { ProductsDto } from "@core/dtos/index.ts";
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";

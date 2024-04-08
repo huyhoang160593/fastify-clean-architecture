@@ -1,11 +1,6 @@
 import type { IGenericRepository } from "@core/interfaces/index.ts";
-import {
-	eq,
-} from "drizzle-orm";
-import type {
-	PgColumn,
-	PgTableWithColumns,
-} from "drizzle-orm/pg-core";
+import { eq } from "drizzle-orm";
+import type { PgColumn, PgTableWithColumns } from "drizzle-orm/pg-core";
 import type { FastifyInstance } from "fastify";
 
 export class GenericRepository<T, U extends string>
