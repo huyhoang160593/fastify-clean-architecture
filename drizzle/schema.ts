@@ -1,7 +1,4 @@
-import { pgTable, uuid, varchar, timestamp, foreignKey, boolean, integer, real } from "drizzle-orm/pg-core"
-  import { sql } from "drizzle-orm"
-
-
+import { pgTable, uuid, varchar, timestamp, boolean, integer, real } from "drizzle-orm/pg-core"
 
 export const categories = pgTable("categories", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),

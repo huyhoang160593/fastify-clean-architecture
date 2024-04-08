@@ -1,4 +1,3 @@
-import type { User } from "@core/entities/index.ts";
 import type {
 	IAuthenSession,
 	IAuthenticationRepository,

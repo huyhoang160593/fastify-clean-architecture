@@ -1,4 +1,4 @@
-import { type Static, Type, TSchema } from "@sinclair/typebox";
+import { type Static, Type } from "@sinclair/typebox";
 import { ResponseDto } from "./index.ts";
 import type { IAuthenSession } from "@core/interfaces/index.ts";
 
