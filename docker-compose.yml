@@ -27,8 +27,10 @@ services:
     build:
       context: .
       dockerfile: docker/app.Dockerfile
+    # command: tail -f /dev/null # keep container running for checking inside
+    command: pnpm start
     ports:
-      - 3000:3000
+      - 3001:3000
 
 volumes:
   pgdata:

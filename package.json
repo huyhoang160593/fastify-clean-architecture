@@ -44,6 +44,7 @@
   "name": "fastify-clean-architecture",
   "scripts": {
     "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
     "migration-up": "tsx scripts/drizzle-migration-runner.ts",
     "copy-env": "tsx scripts/generate-local-env.ts",
     "drizzle-studio": "drizzle-kit studio",

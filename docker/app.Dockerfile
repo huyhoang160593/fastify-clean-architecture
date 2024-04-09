@@ -1,12 +1,21 @@
-FROM oven/bun:1.1.2-alpine as base
+FROM node:20.12-alpine3.18
 
 # update package to the latest version
 RUN apk upgrade
 # add linux-pam package to have mkhomedir_helper for easier to create home directory for `bun` user
 RUN apk add linux-pam
-RUN mkhomedir_helper bun
-RUN mkdir -p /home/bun/app
+RUN npm install -g pnpm
 
-USER bun
+RUN mkhomedir_helper node
+RUN mkdir -p /home/node/app
+RUN chown -R node:node /home/node
 
-WORKDIR /home/bun/app
+WORKDIR /home/node/app
+
+USER node
+
+COPY --chown=node:node .env.docker ./.env
+COPY --chown=node:node src ./src
+COPY --chown=node:node biome.json tsconfig.json drizzle.config.ts package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
