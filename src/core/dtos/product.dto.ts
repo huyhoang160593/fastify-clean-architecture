@@ -12,12 +12,12 @@ export const ProductDto = Type.Object({
 });
 export type ProductDtoType = Static<typeof ProductDto>;
 //#region Input
-export const GetProductByIdDto = Type.Pick(ProductDto, ["id"]);
+export const ProductByIdParamsDto = Type.Pick(ProductDto, ["id"]);
 export const CreateProductDto = Type.Partial(ProductDto);
 export const UpdateProductDto = Type.Partial(ProductDto);
 export const DeleteProductDto = Type.Pick(ProductDto, ["id"]);
 
-export type GetProductByIdDtoType = Static<typeof GetProductByIdDto>;
+export type GetProductByIdDtoType = Static<typeof ProductByIdParamsDto>;
 export type CreateProductDtoType = Static<typeof CreateProductDto>;
 export type UpdateProductDtoType = Static<typeof UpdateProductDto>;
 export type DeleteProductDtoType = Static<typeof DeleteProductDto>;

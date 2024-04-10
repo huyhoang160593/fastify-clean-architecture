@@ -3,7 +3,6 @@ services:
 # PostgreSQL
 #####################################
   db:
-    profiles: [debug]
     container_name: postgredb
     image: postgres:16.2-alpine3.19
     restart: unless-stopped
@@ -22,6 +21,7 @@ services:
     ports:
       - 5432:5432
   app:
+    profiles: [debug]
     container_name: fastify-server
     restart: unless-stopped
     build:
@@ -35,7 +35,6 @@ services:
     ports:
       - 3000:3000
   drizzle_studio:
-    profiles: [debug]
     container_name: drizzle_studio
     restart: unless-stopped
     build:

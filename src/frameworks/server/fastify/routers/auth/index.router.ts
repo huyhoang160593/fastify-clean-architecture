@@ -18,10 +18,13 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 	const userController = server.container.get<AuthenController>(
 		CONTAINER_KEYS.controller.authen,
 	);
+  const AUTH_TAG = "Authentication";
+
 	server.post(
 		"/login",
 		{
 			schema: {
+        tags: [AUTH_TAG],
 				body: LoginDto,
 				response: {
 					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
@@ -44,6 +47,7 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 		"/register",
 		{
 			schema: {
+        tags: [AUTH_TAG],
 				body: RegisterDto,
 				response: {
 					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
@@ -66,6 +70,7 @@ const authRouter: FastifyPluginAsyncTypebox = async (server, _opts) => {
 		{
 			onRequest: [server.refreshAuthenticateHooks],
 			schema: {
+        tags: [AUTH_TAG],
 				body: Type.Object({}),
 				response: {
 					200: OmitStatusCodeDto(SuccessResponseDto(AuthenSessionDto)),
