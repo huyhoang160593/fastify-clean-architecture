@@ -1,5 +1,5 @@
-import { copyFile } from 'fs/promises'
-import path from 'path'
+import { copyFile } from 'node:fs/promises'
+import path from 'node:path'
 
 void (async () => {
   const listArgs = process.argv.slice(2)

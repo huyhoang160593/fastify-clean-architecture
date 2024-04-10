@@ -1,15 +1,21 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
-import { envVariables } from "../src/configs/env.config";
+import {
+	POSTGRES_HOSTNAME,
+	POSTGRES_PORT,
+	POSTGRES_USER,
+	POSTGRES_PASSWORD,
+	POSTGRES_DB,
+} from "../env.config";
 
 const sql = postgres({
-  host: envVariables.POSTGRES_HOSTNAME,
-  port: envVariables.POSTGRES_PORT,
-  user: envVariables.POSTGRES_USER,
-  password: envVariables.POSTGRES_PASSWORD,
-  database: envVariables.POSTGRES_DB,
-})
+	host: POSTGRES_HOSTNAME,
+	port: POSTGRES_PORT,
+	user: POSTGRES_USER,
+	password: POSTGRES_PASSWORD,
+	database: POSTGRES_DB,
+});
 
 const db = drizzle(sql);
 await migrate(db, { migrationsFolder: "drizzle" });

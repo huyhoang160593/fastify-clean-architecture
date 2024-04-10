@@ -2,7 +2,7 @@
 	"$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
 	"files": {
 		"include": [
-			"src/**/*.ts"
+			"**/*.ts"
 		]
 	},
 	"formatter": {
@@ -10,7 +10,7 @@
 		"formatWithErrors": false,
 		"ignore": [],
 		"include": [
-			"src/**/*.ts"
+			"**/*.ts"
 		],
 		"indentStyle": "tab",
 		"indentWidth": 2,
