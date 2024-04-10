@@ -7,7 +7,7 @@ import {
 } from "./env.config";
 
 export default {
-	schema: "./src/frameworks/database/dizzle/schema.ts",
+	schema: ["./src/frameworks/database/dizzle/schema.ts", "./drizzle/schema.ts"],
 	out: "./drizzle",
 	driver: "pg", // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso'
 	dbCredentials: {

@@ -3,6 +3,7 @@ services:
 # PostgreSQL
 #####################################
   db:
+    profiles: [debug]
     container_name: postgredb
     image: postgres:16.2-alpine3.19
     restart: unless-stopped
@@ -21,16 +22,31 @@ services:
     ports:
       - 5432:5432
   app:
-    depends_on:
-      db:
-        condition: service_healthy
+    container_name: fastify-server
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/app.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
     # command: tail -f /dev/null # keep container running for checking inside
     command: pnpm start
     ports:
-      - 3001:3000
+      - 3000:3000
+  drizzle_studio:
+    profiles: [debug]
+    container_name: drizzle_studio
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/drizzle-studio.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    network_mode: host # use host network for drizzle studio cause isolate network within container is not supported
+    # command: tail -f /dev/null # keep container running for checking inside
+    command: pnpm exec drizzle-kit studio --port 3001
 
 volumes:
   pgdata:
