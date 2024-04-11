@@ -35,14 +35,16 @@ export class GenericRepository<T, U extends string>
 		}>,
 	) {}
 	async create(data: Partial<T>) {
-		return (await this.db.insert(this.entity).values(data).returning()) as T;
+    const result = (await this.db.insert(this.entity).values(data).returning()) as T[]
+		return result[0];
 	}
 	async update(id: string, data: Partial<T>) {
-		return (await this.db
+    const result = (await this.db
 			.update(this.entity)
 			.set(data)
 			.where(eq(this.entity.id, id))
-			.returning()) as T;
+			.returning()) as T[]
+		return result[0];
 	}
 	async delete(id: string): Promise<void> {
 		await this.db.delete(this.entity).where(eq(this.entity.id, id));

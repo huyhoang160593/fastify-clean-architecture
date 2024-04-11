@@ -13,8 +13,8 @@ export const ProductDto = Type.Object({
 export type ProductDtoType = Static<typeof ProductDto>;
 //#region Input
 export const ProductByIdParamsDto = Type.Pick(ProductDto, ["id"]);
-export const CreateProductDto = Type.Partial(ProductDto);
-export const UpdateProductDto = Type.Partial(ProductDto);
+export const CreateProductDto = Type.Partial(Type.Omit(ProductDto, ["id"]));
+export const UpdateProductDto = Type.Partial(Type.Omit(ProductDto, ["id"]));
 export const DeleteProductDto = Type.Pick(ProductDto, ["id"]);
 
 export type GetProductByIdDtoType = Static<typeof ProductByIdParamsDto>;
