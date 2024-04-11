@@ -73,8 +73,8 @@ declare module "@fastify/jwt" {
 		refresh: Omit<JWT, "refresh">;
 	}
 	interface FastifyJWT {
-		payload: { id: string; email: string }; // payload type is used for signing and verifying
-		user: Pick<User, "id" | "email">; // user type is return type of `request.user` object
+		payload: { id: string; email: string, privilege_code: string | null }; // payload type is used for signing and verifying
+		user: Pick<User, "id" | "email" | "privilege_code">; // user type is return type of `request.user` object
 	}
 }
 

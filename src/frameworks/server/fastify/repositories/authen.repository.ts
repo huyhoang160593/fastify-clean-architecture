@@ -36,7 +36,11 @@ export class AuthenRepository implements IAuthenticationRepository {
 		return {
 			id: foundUser.id,
 			name: foundUser.name,
-			...this.generateTokens(foundUser.id, foundUser.email),
+			...this.generateTokens(
+				foundUser.id,
+				foundUser.email,
+				foundUser.privilege_code,
+			),
 		};
 	}
 	async register(
@@ -65,7 +69,11 @@ export class AuthenRepository implements IAuthenticationRepository {
 		return {
 			id: newUser[0].id,
 			name: newUser[0].name,
-			...this.generateTokens(newUser[0].id, newUser[0].email),
+			...this.generateTokens(
+				newUser[0].id,
+				newUser[0].email,
+				newUser[0].privilege_code,
+			),
 		};
 	}
 	async refreshSession(id: string, email: string): Promise<IAuthenSession> {
@@ -78,15 +86,24 @@ export class AuthenRepository implements IAuthenticationRepository {
 		return {
 			id: foundUser.id,
 			name: foundUser.name,
-			...this.generateTokens(foundUser.id, foundUser.email),
+			...this.generateTokens(
+				foundUser.id,
+				foundUser.email,
+				foundUser.privilege_code,
+			),
 		};
 	}
 
-	private generateTokens(id: string, email: string) {
+	private generateTokens(
+		id: string,
+		email: string,
+		privilegeCode: string | null,
+	) {
 		const accessToken = this.jwtSign.access(
 			{
 				id,
 				email,
+				privilege_code: privilegeCode,
 			},
 			{
 				expiresIn: "1d",
@@ -96,6 +113,7 @@ export class AuthenRepository implements IAuthenticationRepository {
 			{
 				id,
 				email,
+				privilege_code: privilegeCode,
 			},
 			{
 				expiresIn: "7d",
