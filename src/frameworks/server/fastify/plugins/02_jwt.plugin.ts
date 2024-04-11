@@ -30,6 +30,7 @@ export default fp(async (server) => {
 		async (request: FastifyRequest, reply: FastifyReply) =>
 			authenticateHooks(request, reply, "refresh"),
 	);
+	server.decorate("checkUserPrivilegeHooks", checkUserPrivilegeHooks);
 });
 
 async function authenticateHooks(
@@ -68,12 +69,38 @@ async function authenticateHooks(
 	}
 }
 
+function checkUserPrivilegeHooks(privilegeCodes: string[]) {
+	return async (request: FastifyRequest, reply: FastifyReply) => {
+		const user = request.user;
+		if (!user) {
+			return reply.status(401).send({
+				success: false,
+				reason: {
+					message: "Unauthorized",
+				},
+			} satisfies Omit<Static<typeof ErrorResponseDto>, "statusCode">);
+		}
+		const isUserNotAdmin = request.user.privilege_code !== "admin";
+		const isUserNotHasPrivilege =
+			privilegeCodes.length > 0 &&
+			!privilegeCodes.includes(user.privilege_code ?? "");
+		if (isUserNotAdmin && isUserNotHasPrivilege) {
+			return reply.status(403).send({
+				success: false,
+				reason: {
+					message: "Your access to this endpoint is denied",
+				},
+			});
+		}
+	};
+}
+
 declare module "@fastify/jwt" {
 	interface JWT {
 		refresh: Omit<JWT, "refresh">;
 	}
 	interface FastifyJWT {
-		payload: { id: string; email: string, privilege_code: string | null }; // payload type is used for signing and verifying
+		payload: { id: string; email: string; privilege_code: string | null }; // payload type is used for signing and verifying
 		user: Pick<User, "id" | "email" | "privilege_code">; // user type is return type of `request.user` object
 	}
 }
@@ -88,6 +115,9 @@ declare module "fastify" {
 			request: FastifyRequest,
 			reply: FastifyReply,
 		) => Promise<void>;
+		checkUserPrivilegeHooks: (
+			privilegeCodes: string[],
+		) => (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
 	}
 
 	interface FastifyRequest {
