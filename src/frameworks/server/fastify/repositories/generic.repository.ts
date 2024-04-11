@@ -3,47 +3,30 @@ import { eq } from "drizzle-orm";
 import type { PgColumn, PgTableWithColumns } from "drizzle-orm/pg-core";
 import type { FastifyInstance } from "fastify";
 
-export class GenericRepository<T, U extends string>
-	implements IGenericRepository<T>
+export class GenericRepository<
+	T,
+	U extends GenericPGTable,
+> implements IGenericRepository<T>
 {
 	constructor(
-		private db: FastifyInstance["db"],
-		private entity: PgTableWithColumns<{
-			schema: undefined;
-			columns: {
-				id: PgColumn<
-					{
-						name: "id";
-						tableName: U;
-						dataType: "string";
-						columnType: "PgUUID";
-						data: string;
-						driverParam: string;
-						notNull: true;
-						hasDefault: true;
-						enumValues: undefined;
-						baseColumn: never;
-					},
-					// biome-ignore lint/complexity/noBannedTypes: <explanation>
-					{},
-					// biome-ignore lint/complexity/noBannedTypes: <explanation>
-					{}
-				>;
-			};
-			dialect: "pg";
-			name: U;
-		}>,
+		protected db: FastifyInstance["db"],
+		protected entity: U,
 	) {}
 	async create(data: Partial<T>) {
-    const result = (await this.db.insert(this.entity).values(data).returning()) as T[]
+		const result = (await this.db
+			.insert(this.entity)
+			// biome-ignore lint/suspicious/noExplicitAny: we need some hack for passing data to insert to satisfy the generic type
+			.values([data as any])
+			.returning()) as T[];
 		return result[0];
 	}
 	async update(id: string, data: Partial<T>) {
-    const result = (await this.db
+		const result = (await this.db
 			.update(this.entity)
-			.set(data)
+			// biome-ignore lint/suspicious/noExplicitAny: we need some hack for passing data to update to satisfy the generic type
+			.set(data as any)
 			.where(eq(this.entity.id, id))
-			.returning()) as T[]
+			.returning()) as T[];
 		return result[0];
 	}
 	async delete(id: string): Promise<void> {
@@ -63,3 +46,29 @@ export class GenericRepository<T, U extends string>
 		return (await this.db.select().from(this.entity)) as T[];
 	}
 }
+
+type GenericPGTable = PgTableWithColumns<{
+	schema: undefined;
+	columns: {
+		id: PgColumn<
+			{
+				name: "id";
+				tableName: string;
+				dataType: "string";
+				columnType: "PgUUID";
+				data: string;
+				driverParam: string;
+				notNull: true;
+				hasDefault: true;
+				enumValues: undefined;
+				baseColumn: never;
+			},
+			// biome-ignore lint/complexity/noBannedTypes: <explanation>
+			{},
+			// biome-ignore lint/complexity/noBannedTypes: <explanation>
+			{}
+		>;
+	};
+	dialect: "pg";
+	name: string;
+}>;

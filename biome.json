@@ -3,6 +3,9 @@
 	"files": {
 		"include": [
 			"**/*.ts"
+		],
+		"ignore": [
+			"node_modules/**/*"
 		]
 	},
 	"formatter": {

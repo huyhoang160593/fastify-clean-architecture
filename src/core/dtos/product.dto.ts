@@ -1,5 +1,6 @@
 import { type ReturnType, type Static, Type } from "@sinclair/typebox";
 import { ResponseDto } from "./common.dto.ts";
+import type { Product } from "@core/entities/index.ts";
 
 export const ProductDto = Type.Object({
 	id: Type.String(),
@@ -10,7 +11,7 @@ export const ProductDto = Type.Object({
 	remain: Type.Number(),
 	price: Type.Number(),
 });
-export type ProductDtoType = Static<typeof ProductDto>;
+export type ProductDtoType = Static<typeof ProductDto> extends Product ? Product : never;
 //#region Input
 export const ProductByIdParamsDto = Type.Pick(ProductDto, ["id"]);
 export const CreateProductDto = Type.Partial(Type.Omit(ProductDto, ["id"]));
@@ -34,11 +35,11 @@ export const GetProductByIdResponseDto = ResponseDto<
 	ProductDtoType,
 	typeof ProductDto
 >();
-export const CreateProductIdResponseDto = ResponseDto<
+export const CreateProductResponseDto = ResponseDto<
 	ProductDtoType,
 	typeof ProductDto
 >();
-export const UpdateProductResponseDto = ResponseDto<
+export const UpdateProductByIdResponseDto = ResponseDto<
 	ProductDtoType,
 	typeof ProductDto
 >();
@@ -53,11 +54,11 @@ export type GetAllProductsResponseDtoType = Static<
 export type GetProductByIdResponseDtoType = Static<
 	typeof GetProductByIdResponseDto
 >;
-export type CreateProductIdResponseDtoType = Static<
-	typeof CreateProductIdResponseDto
+export type CreateProductResponseDtoType = Static<
+	typeof CreateProductResponseDto
 >;
-export type UpdateProductResponseDtoType = Static<
-	typeof UpdateProductResponseDto
+export type UpdateProductByIdResponseDtoType = Static<
+	typeof UpdateProductByIdResponseDto
 >;
 export type DeleteProductByIdResponseDtoType = Static<
 	typeof DeleteProductByIdResponseDto

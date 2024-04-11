@@ -1,4 +1,4 @@
-import { ErrorResponseDto, SuccessResponseDto } from "@core/dtos/index.ts";
+import { SuccessResponseDto } from "@core/dtos/index.ts";
 import {
 	GetAllProductsResponseDto,
 	type GetProductByIdDtoType,
@@ -6,18 +6,19 @@ import {
 	type GetAllProductsResponseDtoType,
 	type GetProductByIdResponseDtoType,
 	type CreateProductDtoType,
-	type CreateProductIdResponseDtoType,
-	CreateProductIdResponseDto,
+	type CreateProductResponseDtoType,
+	CreateProductResponseDto,
 	type UpdateProductDtoType,
-	type UpdateProductResponseDtoType,
+	type UpdateProductByIdResponseDtoType,
 	type ProductDtoType,
-	UpdateProductResponseDto,
+	UpdateProductByIdResponseDto,
 	type DeleteProductByIdResponseDtoType,
 	DeleteProductByIdResponseDto,
 } from "@core/dtos/product.dto.ts";
 import { Type } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 import type { ProductUseCase } from "@use-cases/product/index.ts";
+import { generateErrorResponse } from "src/misc/controller-helper.misc.ts";
 
 export class ProductController {
 	constructor(private productUseCase: ProductUseCase) {}
@@ -32,13 +33,7 @@ export class ProductController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error)
 		}
 	}
 
@@ -54,61 +49,43 @@ export class ProductController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error)
 		}
 	}
 
 	async createProduct(
 		newProductInput: CreateProductDtoType,
-	): Promise<CreateProductIdResponseDtoType> {
+	): Promise<CreateProductResponseDtoType> {
 		try {
 			const product = await this.productUseCase.createProduct(newProductInput);
 			const successResponse = Value.Create(
-				Type.Extract(CreateProductIdResponseDto, SuccessResponseDto()),
+				Type.Extract(CreateProductResponseDto, SuccessResponseDto()),
 			);
 			successResponse.data = product;
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error)
 		}
 	}
 
 	async updateProduct(
 		id: ProductDtoType["id"],
 		updateProductInput: UpdateProductDtoType,
-	): Promise<UpdateProductResponseDtoType> {
+	): Promise<UpdateProductByIdResponseDtoType> {
 		try {
 			const product = await this.productUseCase.updateProduct(
 				id,
 				updateProductInput,
 			);
 			const successResponse = Value.Create(
-				Type.Extract(UpdateProductResponseDto, SuccessResponseDto()),
+				Type.Extract(UpdateProductByIdResponseDto, SuccessResponseDto()),
 			);
 			successResponse.data = product;
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error)
 		}
 	}
 
@@ -123,13 +100,7 @@ export class ProductController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error)
 		}
 	}
 }

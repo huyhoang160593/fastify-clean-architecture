@@ -2,10 +2,10 @@ import {
 	pgTable,
 	timestamp,
 	uuid,
-	varchar,
 	boolean,
 	integer,
 	real,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const categories = pgTable(

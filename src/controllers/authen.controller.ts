@@ -1,5 +1,4 @@
 import {
-	ErrorResponseDto,
 	LoginResponseDto,
 	type RefreshTokenDtoType,
 	type RefreshTokenResponseDtoType,
@@ -13,6 +12,7 @@ import {
 import { Type } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 import type { UserUseCase } from "@use-cases/user/index.ts";
+import { generateErrorResponse } from "src/misc/controller-helper.misc.ts";
 
 export class AuthenController {
 	constructor(private userUseCase: UserUseCase) {}
@@ -30,13 +30,7 @@ export class AuthenController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error);
 		}
 	}
 
@@ -60,13 +54,7 @@ export class AuthenController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error);
 		}
 	}
 
@@ -83,13 +71,7 @@ export class AuthenController {
 			return successResponse;
 		} catch (error) {
 			// report and log error
-			const errorResponse = Value.Create(ErrorResponseDto);
-			if (error instanceof Error) {
-				errorResponse.reason = {
-					message: error.message,
-				};
-			}
-			return errorResponse;
+      return generateErrorResponse(error);
 		}
 	}
 }
