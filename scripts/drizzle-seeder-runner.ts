@@ -8,6 +8,7 @@ import {
 } from "../env.config";
 import * as schema from "../drizzle/schema";
 import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
+import { privilegesSeedingData } from "./seederData/privilegesSeedingData";
 
 const sql = postgres({
 	host: POSTGRES_HOSTNAME,
@@ -18,25 +19,4 @@ const sql = postgres({
 });
 const db = drizzle(sql);
 
-await privilegeSeeding(db);
-
-async function privilegeSeeding(db: PostgresJsDatabase<Record<string, never>>) {
-	return await db.insert(schema.privilege).values(privilegesSeedingData);
-}
-
-//#region SeederData
-const privilegesSeedingData: typeof schema.privilege.$inferInsert[] = [
-	{
-		code: "admin",
-		description: "Admin privilege",
-	},
-	{
-		code: "user",
-		description: "User privilege",
-	},
-	{
-		code: "seller",
-		description: "Seller privilege",
-	},
-];
-//#endregion
+await db.insert(schema.privilege).values(privilegesSeedingData);

@@ -54,7 +54,7 @@
     "drizzle:push": "drizzle-kit push:pg",
     "drizzle:drop": "drizzle-kit drop",
     "migration:up": "tsx scripts/drizzle-migration-runner.ts",
-    "seeding:up": "tsx scripts/drizzle-seeding-runner.ts"
+    "seeder:run": "tsx scripts/drizzle-seeder-runner.ts"
   },
   "type": "module",
   "version": "1.0.0"
