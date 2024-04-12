@@ -1,4 +1,7 @@
-import { pgTable, uuid, varchar, timestamp, boolean, integer, real } from "drizzle-orm/pg-core"
+import { pgTable, uuid, varchar, timestamp, foreignKey, boolean, integer, real } from "drizzle-orm/pg-core"
+  import { sql } from "drizzle-orm"
+
+
 
 export const categories = pgTable("categories", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -34,6 +37,7 @@ export const users = pgTable("users", {
 	privilegeCode: varchar("privilege_code").references(() => privilege.code),
 	name: varchar("name").notNull(),
 	email: varchar("email").notNull(),
+	avatarUrl: varchar("avatar_url"),
 	passwordHash: varchar("password_hash").notNull(),
 	phoneNumber: varchar("phone_number").notNull(),
 	address: varchar("address"),

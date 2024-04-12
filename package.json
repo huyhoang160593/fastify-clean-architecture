@@ -51,6 +51,7 @@
     "typecheck": "tsc --noEmit",
     "drizzle:studio": "drizzle-kit studio",
     "drizzle:introspect": "drizzle-kit introspect:pg",
+    "drizzle:generate": "drizzle-kit generate:pg",
     "drizzle:push": "drizzle-kit push:pg",
     "drizzle:drop": "drizzle-kit drop",
     "migration:up": "tsx scripts/drizzle-migration-runner.ts",

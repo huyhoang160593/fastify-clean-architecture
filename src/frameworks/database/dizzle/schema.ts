@@ -52,6 +52,7 @@ export const users = pgTable(
 		privilege_code: varchar("privilege_code").references(() => privilege.code),
 		name: varchar("name").notNull(),
 		email: varchar("email").notNull(),
+    avatar_url: varchar("avatar_url"),
 		password_hash: varchar("password_hash").notNull(),
 		phone_number: varchar("phone_number").notNull(),
 		address: varchar("address"),

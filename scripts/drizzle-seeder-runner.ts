@@ -7,7 +7,7 @@ import {
 	POSTGRES_USER,
 } from "../env.config";
 import * as schema from "../drizzle/schema";
-import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { privilegesSeedingData } from "./seederData/privilegesSeedingData";
 
 const sql = postgres({

@@ -18,5 +18,9 @@ const sql = postgres({
 });
 
 const db = drizzle(sql);
+
 await migrate(db, { migrationsFolder: "drizzle" });
+
+console.log("Migration completed");
+
 await sql.end();
