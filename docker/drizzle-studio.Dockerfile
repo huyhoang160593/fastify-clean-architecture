@@ -16,7 +16,8 @@ USER node
 
 COPY --chown=node:node .env.example ./.env
 COPY drizzle ./drizzle
-COPY --chown=node:node drizzle.config.ts env.config.ts  ./
+COPY scripts ./scripts
+COPY --chown=node:node drizzle.config.ts env.config.ts ./
 
 RUN pnpm init
-RUN pnpm add -D drizzle-kit pg drizzle-orm dotenv
+RUN pnpm add -D drizzle-kit pg drizzle-orm dotenv tsx postgres

@@ -116,6 +116,7 @@
   "exclude": [
     "scripts",
     "drizzle",
+    "seeders",
     "drizzle.config.ts",
     "env.config.ts"
   ]

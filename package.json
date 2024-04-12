@@ -45,12 +45,16 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "start": "tsx src/main.ts",
-    "migration-up": "tsx scripts/drizzle-migration-runner.ts",
     "copy-env": "tsx scripts/generate-local-env.ts",
-    "drizzle-studio": "drizzle-kit studio",
     "format": "biome format --write ./src",
     "lint": "biome lint --apply ./src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "drizzle:studio": "drizzle-kit studio",
+    "drizzle:introspect": "drizzle-kit introspect:pg",
+    "drizzle:push": "drizzle-kit push:pg",
+    "drizzle:drop": "drizzle-kit drop",
+    "migration:up": "tsx scripts/drizzle-migration-runner.ts",
+    "seeding:up": "tsx scripts/drizzle-seeding-runner.ts"
   },
   "type": "module",
   "version": "1.0.0"
